@@ -10,7 +10,26 @@ export default function NewProject({ onAdd, onCancel }) {
   const description = useRef();
   const dueDate = useRef();
 
-  function handleSave() {}
+  function handleSave() {
+    const enteredTitle = title.current.value;
+    const enteredDescription = description.current.value;
+    const enterDueDate = dueDate.current.value;
+
+    if (
+      enteredTitle === "" ||
+      enteredDescription === "" ||
+      enterDueDate === ""
+    ) {
+      modal.current.open();
+      return;
+    }
+
+    onAdd({
+      title: enteredTitle,
+      description: enteredDescription,
+      dueDate: enterDueDate,
+    });
+  }
 
   return (
     <>
@@ -27,8 +46,8 @@ export default function NewProject({ onAdd, onCancel }) {
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
             <button
-              className="text-stone-800 hover:text-stone-950"
               onClick={onCancel}
+              className="text-stone-800 hover:text-stone-950"
             >
               Cancel
             </button>
